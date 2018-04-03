@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="{{url_for('static',filename='jquery-3.1.1.min.js')}}"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">MyBlog</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard <span class="sr-only">(current)</span></a></li>
+        <li><a href="/article_list/1">文章列表</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li><a>hello,{{name}}</a></li>
+        <li><a href="/logout">登出</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container-fluid">
+
+      <div id="db1" style="align-content: center;margin-left: 5%;margin-right: 5%;">
+        <div class="panel panel-info">
+            <div class="panel-heading"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>All Status</div>
+            <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-4">
+                      <div class="page-header">
+                        <h4>统计</h4>
+                      </div>
+                      <ul class="list-group">
+
+                        <li class="list-group-item">
+                          <span class="badge">{{article_number}}</span>
+                          总文章数
+                        </li>
+                         <li class="list-group-item" style="visibility: hidden;">
+                          <span class="badge">14</span>
+                          今日更新
+                        </li>
+                      </ul>
+
+                  </div>
+                  <div class="col-md-4">
+                      <div class="page-header">
+                        <h4>待办事项</h4>
+                      </div>
+                      <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Warning!</strong> 添加的代办事项会显示在这里，点击可以删除的...
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="page-header">
+                        <h4>添加</h4>
+                      </div>
+                      <div class="alert alert-info" role="alert">
+                          <div class="input-group">
+                              <input type="text" class="form-control" placeholder="添加一些代办事项...">
+                              <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Add!</button>
+                              </span>
+                          </div><!-- /input-group -->
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+     </div>
+
+
+
+      <div id="db3" style="align-content: center;margin-left: 5%;margin-right: 5%;">
+        <div class="panel panel-info">
+            <div class="panel-heading"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>写作</div>
+            <div class="panel-body">
+                <form role="form" action="/add_article" method="post" id="article_form">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon" id="sizing-addon1">Title</span>
+                      <input id="art1" name="article_title" type="text" class="form-control" placeholder=">_< ..." aria-describedby="sizing-addon1" required>
+                    </div>
+                    <br/>
+                <!--富文本编辑器-->
+                    <textarea id="summernote" name="article_content" placeholder="input your words...">
+
+                    </textarea>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#summernote').summernote({
+                                height:300,
+                                focus:true,
+                                maxHeight:null,
+                                minHeight:null
+                            });
+                        });
+                    </script>
+                    <div>
+                        <button type="submit" class="btn btn-success">提交</button>
+                        <a class="btn btn-warning" onclick="clearform()" style="visibility: hidden;">重置</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+
+      <footer style="text-align: center;margin-top: 100px;">
+          2017～2020.Chunli&Super
+      </footer>
+
+    </div>
+
+</body>
+<script>
+    function clearform() {
+        document.getElementById('art1').innerHTML = '';
+        document.getElementById('summernote').innerHTML = '';
+    }
+</script>
+</html>
